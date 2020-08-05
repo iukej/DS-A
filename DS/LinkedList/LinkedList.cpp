@@ -1,11 +1,9 @@
-
-
 #include <iostream>
-
+using namespace std;
 
 struct node{
-char data;
-node* next_node;
+	node* next_node;
+	char data;
 };
 
 class linkedList{
@@ -18,7 +16,7 @@ public:
 	} 
 
 	int nextEntry(char input){
-		node* new_node;
+		node* new_node = new node;
 		new_node -> data = input;
 		new_node -> next_node = NULL; 
 	
@@ -32,10 +30,29 @@ public:
 		};
 	return 0;		
 	};
+
+	int showList(){
+		node *placeholder = new node;		
+		placeholder = head;	
+
+		while ( placeholder != NULL){
+			cout << placeholder -> data;
+			placeholder = placeholder->next_node;	
+		};
+	return 0;
+	};	
+
 };
 
 int main(){
 	linkedList ll;
 	ll.nextEntry('h');
+	ll.nextEntry('e');
+	ll.nextEntry('l');
+	ll.nextEntry('l');
+	ll.nextEntry('o');
+	
+	ll.showList();
 	return 0;
+
 };
