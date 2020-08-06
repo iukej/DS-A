@@ -18,15 +18,17 @@ public:
 	int nextEntry(char input){
 		node* new_node = new node;
 		new_node -> data = input;
-		new_node -> next_node = NULL; 
-	
+		new_node -> next_node = NULL;
+		
 		if(tail != NULL){
 			tail -> next_node = new_node;
 			tail = new_node;		
+			
 		}
 		else{
 			tail = new_node;
-			head = new_node->next_node;	
+			head = new_node;
+			
 		};
 	return 0;		
 	};
@@ -39,6 +41,7 @@ public:
 			cout << placeholder -> data;
 			placeholder = placeholder->next_node;	
 		};
+	cout << "\n";
 	return 0;
 	};	
 
@@ -53,6 +56,9 @@ int main(){
 	ll.nextEntry('o');
 	
 	ll.showList();
+	
+	
 	return 0;
+
 
 };
