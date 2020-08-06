@@ -23,13 +23,12 @@ public:
 		if(tail != NULL){
 			tail -> next_node = new_node;
 			tail = new_node;		
-			
 		}
 		else{
 			tail = new_node;
 			head = new_node;
-			
 		};
+
 	return 0;		
 	};
 
@@ -49,11 +48,11 @@ public:
 
 int main(){
 	linkedList ll;
-	ll.nextEntry('h');
+
+	ll.nextEntry('t');
 	ll.nextEntry('e');
-	ll.nextEntry('l');
-	ll.nextEntry('l');
-	ll.nextEntry('o');
+	ll.nextEntry('s');
+	ll.nextEntry('t');
 	
 	ll.showList();
 	
