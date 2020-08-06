@@ -2,15 +2,16 @@
 using namespace std;
 
 class Stack{
-private:
-public:
-	Stack(){
-	}
-
-
-	// int push(){};
+	private:
 	
-	// int pop(){};
+	public:
+		Stack(){
+		}
+	
+	
+		// int push(){};
+	
+		// int pop(){};
 
 };
 
