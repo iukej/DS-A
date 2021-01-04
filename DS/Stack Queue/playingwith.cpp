@@ -10,6 +10,10 @@ struct testStruct{
     char data[20];
 };
 
+struct someStruct{
+    char someData[20];
+};
+
 
 int main(){
     //int x;
@@ -48,5 +52,6 @@ int main(){
     tester->data[2] = 'y';
     std::cout << tester->data;
 
+    
 
 }
