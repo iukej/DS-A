@@ -34,7 +34,7 @@ class Tree{
             
             while (not placed){
                 if ( key > current_node->key){                    //if keyval > existing node, check right subtree
-                    if (not current_node->right_child){           ////if empty, add it. if not traverse the new subtree
+                    if (not current_node->right_child){           ////if empty, add it. if not, traverse new subtree
                         current_node->right_child = new node;
                         current_node->right_child->key = key;
                         current_node->right_child->value = value; 
@@ -45,7 +45,7 @@ class Tree{
                     }
                 } else{
                     if (not current_node->left_child){           //if keyval < exiting node, check left subtree
-                        current_node->left_child = new node;     // if empty, add it. if not traverse the new subtree
+                        current_node->left_child = new node;     // if empty, add it. if not, traverse new subtree
                         current_node->left_child->key = key;
                         current_node->left_child->value = value; 
                         placed = true;
