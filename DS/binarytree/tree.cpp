@@ -13,7 +13,10 @@ struct node{
 class Tree{
     private:
     public:
-        node *root_node;
+        node *root_node;                                         //put in private. shouldn't have this here. add function for access.
+                                                                 //and for printing node values, wrap up search portion of insert_node()
+                                                                 //into own search() method, so can be used for various other methods.
+
         Tree(){                                                  //need constructor
             root_node = NULL;
         };
