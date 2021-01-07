@@ -66,56 +66,51 @@ vector<int> quickSort(vector<int> input){
 
         cout << "newPivotIndex: " << newPivotIndex << endl;
          
-        vector<int> leftHalf(newPivotIndex,0);
-        vector<int> rightHalf(inputLength - (newPivotIndex+1), 0);
+        if ((newPivotIndex != 0) and (newPivotIndex != (inputLength - 1))){
+            vector<int> leftHalf(newPivotIndex,0);
+            vector<int> rightHalf(inputLength - (newPivotIndex+1), 0);
 
-        for (int i = 0; i < newPivotIndex; i++){
-            leftHalf[i] = output[i];
+           for (int i = 0; i < newPivotIndex; i++){
+               leftHalf[i] = output[i];
+           }
+           leftHalf = quickSort(leftHalf);
+
+           for (int i = newPivotIndex + 1; i < inputLength; i++){       
+               rightHalf[i-newPivotIndex - 1] = output[i];
+           }
+           rightHalf = quickSort(rightHalf);
+
+           
+
+           coutVector(leftHalf);
+           coutVector(rightHalf);
+        }else if (newPivotIndex == (inputLength - 1)){
+            //in this case, we don't want the right half. off by one errors.
+            vector<int> leftHalf(newPivotIndex,0);
+
+            for (int i = 0; i < newPivotIndex; i++){
+                leftHalf[i] = output[i];
+            }
+            cout << "split off left half" << endl;
+            coutVector(leftHalf);
+
+            leftHalf = quickSort(leftHalf);
+            cout << "split off left half after resort" << endl;
+            coutVector(leftHalf);
+        }else if (newPivotIndex == 0){
+            vector<int> rightHalf(inputLength,0);
+
+            for (int i = 0; i < inputLength;i++){
+                rightHalf[i] = output[i];
+            }
+            cout << "split off right half" << endl;
+            coutVector(rightHalf);
+
+            rightHalf = quickSort(rightHalf);
+            cout << "split off right half after resort" << endl;
+            coutVector(rightHalf);
+
         }
-        leftHalf = quickSort(leftHalf);
-
-        for (int i = newPivotIndex + 1; i < inputLength; i++){       
-            rightHalf[i-newPivotIndex - 1] = output[i];
-        }
-        rightHalf = quickSort(rightHalf);
-
-        
-
-        coutVector(leftHalf);
-        coutVector(rightHalf);
-       // if ((newPivotIndex != 0) and (newPivotIndex != (inputLength - 1))){
-       //     vector<int> leftHalf(newPivotIndex,0);
-       //     vector<int> rightHalf(inputLength - (newPivotIndex+1), 0);
-
-       //    for (int i = 0; i < newPivotIndex; i++){
-       //        leftHalf[i] = output[i];
-       //    }
-       //    leftHalf = quickSort(leftHalf);
-
-       //    for (int i = newPivotIndex + 1; i < inputLength; i++){       
-       //        rightHalf[i-newPivotIndex - 1] = output[i];
-       //    }
-       //    rightHalf = quickSort(rightHalf);
-
-       //    
-
-       //    coutVector(leftHalf);
-       //    coutVector(rightHalf);
-       // }
-
-        //vector<int> leftHalf(smallerValueIndex-1,0);
-        //vector<int> rightHalf(inputLength - (smallerValueIndex), 0);
-
-       //for (int i = 0; i < smallerValueIndex; i++){
-       //    leftHalf[i] = output[i];
-       //}
-       //for (int i = smallerValueIndex; i < inputLength; i++){       //pivot can go left or right, doesn't matter
-       //    rightHalf[i-smallerValueIndex] = output[i];
-       //}
-
-//        coutVector(leftHalf);
-//        coutVector(rightHalf);
-//        coutVector(output);
           
 
         
@@ -130,8 +125,11 @@ int main(){
     vector<int> inputvector = {4,5,6,2};
 
     vector<int> sorted;
-    sorted = quickSort(inputvector);
-    //coutVector(sorted);
+    while (issorted(inputvector) != 1){
+        inputvector = quickSort(inputvector);
+    }
+
+    coutVector(inputvector);
 
 
 
