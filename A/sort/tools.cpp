@@ -1,7 +1,10 @@
+#include <cstdlib>
+//note, cstdlib and stdlib.h not same, stdlib.h deprecated as well
 #include <iostream>
+#include <time.h>
 #include <vector>   
 
-#include "checksorted.h"
+#include "tools.h"
 
 /* https://stackoverflow.com/a/38228651 */ // "when you see code using std::vector without corresponding #include, that code is broken.
 /* and more https://stackoverflow.com/a/38229711 */ //"only part of of vector is built into standard
@@ -25,12 +28,18 @@ bool issorted(vector<int> input){
     return sorted;
 };
 
+void coutVector(vector<int> input){
+    cout << "vector: " << endl;
+    for(int i = 0; i < input.size(); i++){
+        cout << input[i] << " ";
+    }
+    cout << endl;
+};
 
-//int main(){
-//    //vector<int> test = {1, 3, 6};
-//    //vector<int> test = {4, 3, 6};
-//    vector<int> test = {4, 5, 999};
-//    bool val = issorted(test);
-//    cout << "sorted return: " << val << endl;
-//    return val;
-//};
+
+int pickRandomIndex(vector<int> input){
+    srand(time(NULL));
+    int randomIndex = rand() % input.size();
+    return randomIndex;
+};
+
