@@ -4,7 +4,27 @@
 
 #include "tools.h"
 
+
+
+
 using namespace std;
+
+
+
+
+
+// come back to this
+
+
+
+
+
+
+
+
+
+
+
 
 vector<int> quickSort(vector<int> input){
     int inputLength = input.size();
@@ -35,28 +55,69 @@ vector<int> quickSort(vector<int> input){
             }
             
         }
+
+        int newPivotIndex = smallerValueIndex;
         for (int i = 0; i < matchingpivots; i++){
-            output[smallerValueIndex] = pivotValue;                 //fill in pivot values 
-            smallerValueIndex += 1;
+            output[newPivotIndex] = pivotValue;                 //fill in pivot values 
+            newPivotIndex += 1;
         }
 
-        vector<int> leftHalf(pivot+1, 0);
-        vector<int> rightHalf(inputLength - (pivot + 1), 0);
+        newPivotIndex -= 1;
 
-        for (int i = 0; i < pivot; i++){
+        cout << "newPivotIndex: " << newPivotIndex << endl;
+         
+        vector<int> leftHalf(newPivotIndex,0);
+        vector<int> rightHalf(inputLength - (newPivotIndex+1), 0);
+
+        for (int i = 0; i < newPivotIndex; i++){
             leftHalf[i] = output[i];
         }
-        for (int i = pivot; i < inputLength; i++){              //pivot can go left or right, doesn't matter
-            rightHalf[i-pivot] = output[i];
-        }
+        leftHalf = quickSort(leftHalf);
 
-        //leftHalf = quickSort(leftHalf);
-        coutVector(leftHalf);
-        //rightHalf = quickSort(rightHalf);
-        coutVector(rightHalf);
+        for (int i = newPivotIndex + 1; i < inputLength; i++){       
+            rightHalf[i-newPivotIndex - 1] = output[i];
+        }
+        rightHalf = quickSort(rightHalf);
 
         
-        //coutVector(output);  
+
+        coutVector(leftHalf);
+        coutVector(rightHalf);
+       // if ((newPivotIndex != 0) and (newPivotIndex != (inputLength - 1))){
+       //     vector<int> leftHalf(newPivotIndex,0);
+       //     vector<int> rightHalf(inputLength - (newPivotIndex+1), 0);
+
+       //    for (int i = 0; i < newPivotIndex; i++){
+       //        leftHalf[i] = output[i];
+       //    }
+       //    leftHalf = quickSort(leftHalf);
+
+       //    for (int i = newPivotIndex + 1; i < inputLength; i++){       
+       //        rightHalf[i-newPivotIndex - 1] = output[i];
+       //    }
+       //    rightHalf = quickSort(rightHalf);
+
+       //    
+
+       //    coutVector(leftHalf);
+       //    coutVector(rightHalf);
+       // }
+
+        //vector<int> leftHalf(smallerValueIndex-1,0);
+        //vector<int> rightHalf(inputLength - (smallerValueIndex), 0);
+
+       //for (int i = 0; i < smallerValueIndex; i++){
+       //    leftHalf[i] = output[i];
+       //}
+       //for (int i = smallerValueIndex; i < inputLength; i++){       //pivot can go left or right, doesn't matter
+       //    rightHalf[i-smallerValueIndex] = output[i];
+       //}
+
+//        coutVector(leftHalf);
+//        coutVector(rightHalf);
+//        coutVector(output);
+          
+
         
     return output;
     }
