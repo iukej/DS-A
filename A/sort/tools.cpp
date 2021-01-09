@@ -38,9 +38,9 @@ void coutVector(vector<int> input){
 
 
 int pickRandomIndex(vector<int> input){
-    //srand(time(NULL));
-    srand(3);
-    //srand(4);
+    srand(time(NULL));
+    //srand(3);
+    //srand(2);
     int randomIndex = rand() % input.size();
     return randomIndex;
 };
