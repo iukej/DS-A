@@ -4,69 +4,40 @@
 
 #include "tools.h"
 
-
-
-
 using namespace std;
-
-
-
-
-
-// come back to this
-
-
-
-
-
-
-
-
-
-
-
 
 vector<int> quickSort(vector<int> input){
     int inputLength = input.size();
-    if (((issorted(input) == 1) or (inputLength == 1))){    //recursive. if already sorted or 1 element, nothing to do.
-        cout << "already sorted or input length 1" << endl;
+    if (((issorted(input) == 1) or (inputLength == 1))){                                //recursive. if already sorted or 1 element, nothing to do.
         return input;
     }else{
-        cout << "entered else block " << endl;
-        int pivot = pickRandomIndex(input);
+        int pivot = pickRandomIndex(input);                                             //pick random pivot within list
         int pivotValue = input[pivot];
-        cout << "pivotIndex: " << pivot << endl;
-        cout << "pivotValue: " << pivotValue << endl;
+        //cout << "pivotIndex: " << pivot << " pivotValue: " << pivotValue << endl;
 
         vector<int> output(inputLength, 0);
-        int smallerValueIndex = 0;
-        int largerValueIndex = inputLength-1;
-        int matchingpivots = 0;
+        int smallerValueIndex = 0, largerValueIndex = inputLength-1, matchingpivots = 0;
 
-        for (int i = 0; i < inputLength; i++){
-            if (input[i] < pivotValue){
+        for (int i = 0; i < inputLength; i++){                                          
+            if (input[i] < pivotValue){                                          //assign values < pivot Value from left side of array
                 output[smallerValueIndex] = input[i];
                 smallerValueIndex += 1;
-            }else if (input[i] > pivotValue){                                    //need this to catch the duplicate pivot condition
+            }else if (input[i] > pivotValue){                                    //assign values > pivot Value from right side of array
                 output[largerValueIndex] = input[i];
                 largerValueIndex -= 1;
-            }else if (input[i] == pivotValue){
+            }else if (input[i] == pivotValue){                                   //Handle case where pivot has duplicate values
                 matchingpivots += 1;
             }
-            
         }
 
         int newPivotIndex = smallerValueIndex;
         for (int i = 0; i < matchingpivots; i++){
-            output[newPivotIndex] = pivotValue;                 //fill in pivot values 
+            output[newPivotIndex] = pivotValue;                                 //fill in pivot values 
             newPivotIndex += 1;
         }
-
         newPivotIndex -= 1;
-
-        cout << "newPivotIndex: " << newPivotIndex << endl;
          
-        if ((newPivotIndex != 0) and (newPivotIndex != (inputLength - 1))){
+        if ((newPivotIndex != 0) and (newPivotIndex != (inputLength - 1))){    //if pivot position not at either end, have two sides to put through quicksort
             vector<int> leftHalf(newPivotIndex,0);
             vector<int> rightHalf(inputLength - (newPivotIndex+1), 0);
 
@@ -77,8 +48,8 @@ vector<int> quickSort(vector<int> input){
            for (int i = newPivotIndex + 1; i < inputLength; i++){       
                rightHalf[i-newPivotIndex - 1] = output[i];
                }
-
-           leftHalf = quickSort(leftHalf);
+                                                                               //sort sides of the pivot 
+           leftHalf = quickSort(leftHalf);                                      
            rightHalf = quickSort(rightHalf);
 
            int outputInserter = 0;
@@ -96,20 +67,15 @@ vector<int> quickSort(vector<int> input){
                outputInserter += 1;
            }
 
-            return output;
-           //coutVector(leftHalf);
-           //coutVector(rightHalf);
-        }else if (newPivotIndex == (inputLength - 1)){
-            //in this case, we don't want the right half. off by one errors.
-            vector<int> leftHalf(newPivotIndex,0);
+        }else if (newPivotIndex == (inputLength - 1)){                      //if pivot position at right end, run left side through sort
+            vector<int> leftHalf(newPivotIndex,0);     
 
             for (int i = 0; i < newPivotIndex; i++){
                 leftHalf[i] = output[i];
                 }
-            //cout << "split off left half" << endl;
-            //coutVector(leftHalf);
 
-            leftHalf = quickSort(leftHalf);
+                                                                            
+            leftHalf = quickSort(leftHalf);                                 //sort left side of pivot 
 
             int outputInserter = 0;
             for (int i=0; i < leftHalf.size(); i++){
@@ -118,20 +84,14 @@ vector<int> quickSort(vector<int> input){
             }
             output[outputInserter] = pivotValue;
 
-
-            return output;
-            //cout << "split off left half after resort" << endl;
-            //coutVector(leftHalf);
-        }else if (newPivotIndex == 0){
+        }else if (newPivotIndex == 0){                                      //if pivot position at left end, run right side through sort
             vector<int> rightHalf(inputLength-1,0);
 
             for (int i = 1; i < inputLength;i++){
                 rightHalf[i-1] = output[i];
                 }
-            cout << "split off right half" << endl;
-            coutVector(rightHalf);
-
-            rightHalf = quickSort(rightHalf);
+                                                                             
+            rightHalf = quickSort(rightHalf);                               //sort right side of pivot 
 
             int outputInserter = 0;
             output[outputInserter] = pivotValue;
@@ -140,40 +100,20 @@ vector<int> quickSort(vector<int> input){
             for (int i=0; i < rightHalf.size(); i++){
                 output[outputInserter] = rightHalf[i];
                 outputInserter +=1;
-                   
             }
-
-
-            //cout << "split off right half after resort" << endl;
-            coutVector(rightHalf);
-            return output;
-
         }
-          
-
-        
     return output;
     }
 };
 
 
 int main(){
-    //vector<int> inputvector = {4,5,6};
-    //vector<int> inputvector = {4,6,4,2};
-    vector<int> inputvector = {4,3,46,7,345345,345,43,2,5234,467,756,8568,4};
     //vector<int> inputvector = {4,5,6,2};
-
-    //vector<int> sorted;
-    //while (issorted(inputvector) != 1){
-    //inputvector = quickSort(inputvector);
-    //}
-    //coutVector(inputvector);
-
+    vector<int> inputvector = {4,3,46,-7,345345,345,43,2,-5234,467,756,8568,4};
     vector<int> outputvector;
+
     outputvector = quickSort(inputvector);
     coutVector(outputvector);
-
-
-
+    
     return 1;
 };
