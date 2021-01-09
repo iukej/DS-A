@@ -161,19 +161,31 @@ vector<int> insertSort(vector<int> input){
         input[insertioncounter]=numberToInsert;
         sortedSectionEnd += 1;
     }
-   
+    return input;
+};
+
+vector<int> bubbleSort(vector<int> input){
+    while (issorted(input) == 0){
+        for (int i = 1; i < input.size(); i++){
+            if (input[i] < input[i-1]){
+                int bubble = input[i];
+                input[i] = input[i-1];
+                input[i-1] = bubble;
+            }
+        }
+    }
     return input;
 };
 
 int main(){
-    //vector<int> inputvector = {4,3,46,-7,345345,345,43,2,-5234,467,756,8568,4};
-    vector<int> inputvector = {4,5,6,3,2,1};
+    vector<int> inputvector = {4,3,46,-7,345345,345,43,2,-5234,467,756,8568,4};
+    //vector<int> inputvector = {4,5,6,3,2,1};
     vector<int> outputvector;
 
-    //outputvector = quickSort(inputvector);
+    outputvector = quickSort(inputvector);
     //outputvector = mergeSort(inputvector);
     //outputvector = insertSort(inputvector);
-    outputvector = bubbleSort(inputvector);
+    //outputvector = bubbleSort(inputvector);
     coutVector(outputvector);
     
     return 1;
