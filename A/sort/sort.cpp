@@ -106,13 +106,51 @@ vector<int> quickSort(vector<int> input){
     }
 };
 
+vector<int> mergeSort(vector<int> input){
+    int inputLength = input.size();
+    if (((issorted(input) == 1) or (inputLength == 1))){                                //recursive. if already sorted or 1 element, nothing to do.
+        return input;
+    }else{
+        //i'd like to do halves here, not random indices 
+
+        int halfSize = input.size()/2;                                                 // int(a)/int(b) brings back quotient, ignoring remainder
+        vector<int> leftHalf(input.begin(), input.begin() + halfSize);                 
+        vector<int> rightHalf(input.begin() + halfSize, input.end());                  //https://stackoverflow.com/a/9811343
+                                                                                       //can also just pass addresses with appropriate offsets bc vectors contiguous.
+
+        leftHalf = mergeSort(leftHalf);                                                //checks if already sorted, if not, break down further.
+        rightHalf = mergeSort(rightHalf);
+
+
+        for(int i=0; i < input.size(); i++){ 
+            if ((leftHalf.size() > 0) && (rightHalf.size() > 0)){                      //logic depending on wether arrays have members
+                if (leftHalf[0] <= rightHalf[0]){                                      //if 0th element of righthalf < 0th of lefthalf, insert. lefthalf otherwise. 
+                    input[i] = leftHalf[0];
+                    leftHalf.erase(leftHalf.begin());                                  //remove 0th element from vector
+                }else{
+                    input[i] = rightHalf[0];
+                    rightHalf.erase(rightHalf.begin());
+                }
+            }else if (leftHalf.size() > 0){
+                    input[i] = leftHalf[0];
+                    leftHalf.erase(leftHalf.begin());
+            }else if (rightHalf.size() > 0){
+                    input[i] = rightHalf[0];
+                    rightHalf.erase(rightHalf.begin());
+            }
+
+        }
+        return input;
+    }
+};
 
 int main(){
-    //vector<int> inputvector = {4,5,6,2};
-    vector<int> inputvector = {4,3,46,-7,345345,345,43,2,-5234,467,756,8568,4};
+    //vector<int> inputvector = {4,3,46,-7,345345,345,43,2,-5234,467,756,8568,4};
+    vector<int> inputvector = {4,5,6,3,2,1};
     vector<int> outputvector;
 
-    outputvector = quickSort(inputvector);
+    //outputvector = quickSort(inputvector);
+    outputvector = mergeSort(inputvector);
     coutVector(outputvector);
     
     return 1;
