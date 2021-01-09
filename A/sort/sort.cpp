@@ -111,16 +111,13 @@ vector<int> mergeSort(vector<int> input){
     if (((issorted(input) == 1) or (inputLength == 1))){                                //recursive. if already sorted or 1 element, nothing to do.
         return input;
     }else{
-        //i'd like to do halves here, not random indices 
-
+        //Split on halves here, not random indices.
         int halfSize = input.size()/2;                                                 // int(a)/int(b) brings back quotient, ignoring remainder
         vector<int> leftHalf(input.begin(), input.begin() + halfSize);                 
         vector<int> rightHalf(input.begin() + halfSize, input.end());                  //https://stackoverflow.com/a/9811343
                                                                                        //can also just pass addresses with appropriate offsets bc vectors contiguous.
-
         leftHalf = mergeSort(leftHalf);                                                //checks if already sorted, if not, break down further.
         rightHalf = mergeSort(rightHalf);
-
 
         for(int i=0; i < input.size(); i++){ 
             if ((leftHalf.size() > 0) && (rightHalf.size() > 0)){                      //logic depending on wether arrays have members
@@ -138,10 +135,34 @@ vector<int> mergeSort(vector<int> input){
                     input[i] = rightHalf[0];
                     rightHalf.erase(rightHalf.begin());
             }
-
         }
         return input;
     }
+};
+
+
+vector<int> insertSort(vector<int> input){
+    int sortedSectionEnd = 0;                                                       //goal here is to insert values from unsorted side to sorted side, w/o allocating more mem.
+
+    for (int i=sortedSectionEnd + 1; i<input.size(); i++){                          //unsort list begin at position 1
+        int numberToInsert = input[i];
+
+        int insertioncounter = 0;
+        for (int y=sortedSectionEnd; y>=0; y--){                                    //need to handle case where it gets inserted @ front
+            if (input[i] > input[y]){
+                insertioncounter = y + 1;
+                break;
+            }
+        }
+                                                                                    
+        for (int y = sortedSectionEnd; y>= insertioncounter; y--){                 //for each element here, i can take from here to wall and push valeus forward 1. 
+            input[y+1] = input[y];
+        }
+        input[insertioncounter]=numberToInsert;
+        sortedSectionEnd += 1;
+    }
+   
+    return input;
 };
 
 int main(){
@@ -150,7 +171,9 @@ int main(){
     vector<int> outputvector;
 
     //outputvector = quickSort(inputvector);
-    outputvector = mergeSort(inputvector);
+    //outputvector = mergeSort(inputvector);
+    //outputvector = insertSort(inputvector);
+    outputvector = bubbleSort(inputvector);
     coutVector(outputvector);
     
     return 1;
